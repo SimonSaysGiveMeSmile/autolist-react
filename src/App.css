@@ -1,10 +1,10 @@
 :root {
   /* Black & White Glass Design System */
   --bg: #000000;
-  --surface: rgba(255, 255, 255, 0.03);
-  --surface-hover: rgba(255, 255, 255, 0.06);
-  --border: rgba(255, 255, 255, 0.2);
-  --border-light: rgba(255, 255, 255, 0.15);
+  --surface: rgba(255, 255, 255, 0.05);
+  --surface-hover: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.3);
+  --border-light: rgba(255, 255, 255, 0.25);
 
   --text: #ffffff;
   --text-muted: rgba(255, 255, 255, 0.7);
@@ -13,8 +13,8 @@
   --accent: #ffffff;
   --accent-hover: rgba(255, 255, 255, 0.9);
 
-  --glass-bg: rgba(255, 255, 255, 0.02);
-  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.3);
 
   --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 16px 64px 0 rgba(0, 0, 0, 0.6);
@@ -70,7 +70,7 @@ h2 {
   background: var(--glass-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
+  border: 2px solid var(--glass-border);
   border-radius: var(--radius-lg);
   padding: 2rem;
   box-shadow: var(--shadow);
@@ -84,7 +84,7 @@ h2 {
 
 .header {
   padding: 1.5rem 0;
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 2px solid var(--border-light);
   background: var(--glass-bg);
   backdrop-filter: blur(20px);
   position: sticky;
@@ -120,7 +120,7 @@ h2 {
   background: var(--surface);
   padding: 0.25rem;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--border-light);
+  border: 2px solid var(--border-light);
 }
 
 .lang-btn {
@@ -204,7 +204,7 @@ h2 {
   width: 100%;
   padding: 0.75rem 1rem;
   background: var(--surface);
-  border: 1.5px solid var(--border-light);
+  border: 2px solid var(--border-light);
   border-radius: var(--radius-sm);
   color: var(--text);
   font-size: 0.9375rem;
@@ -258,7 +258,7 @@ h2 {
 
 .btn {
   padding: 0.75rem 1.5rem;
-  border: 1.5px solid var(--border);
+  border: 2px solid var(--border);
   border-radius: var(--radius-sm);
   font-size: 0.9375rem;
   font-weight: 500;
@@ -316,7 +316,7 @@ h2 {
 .notice {
   padding: 1rem;
   background: var(--surface);
-  border: 1px solid var(--border-light);
+  border: 2px solid var(--border-light);
   border-radius: var(--radius-sm);
   font-size: 0.875rem;
   color: var(--text-muted);
@@ -332,7 +332,7 @@ h2 {
 
 .platform {
   background: var(--surface);
-  border: 1.5px solid var(--border-light);
+  border: 2px solid var(--border-light);
   border-radius: var(--radius);
   padding: 1.25rem;
   margin-bottom: 1rem;
@@ -366,7 +366,7 @@ h2 {
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--text);
-  border: 1.5px solid var(--border-light);
+  border: 2px solid var(--border-light);
   background: var(--surface);
 }
 
@@ -383,7 +383,7 @@ h2 {
   font-size: 0.75rem;
   font-weight: 500;
   background: var(--surface);
-  border: 1px solid var(--border-light);
+  border: 2px solid var(--border-light);
   color: var(--text-muted);
 }
 
@@ -411,7 +411,7 @@ h2 {
   padding: 1rem;
   background: var(--glass-bg);
   border-radius: var(--radius-sm);
-  border: 1.5px solid var(--border-light);
+  border: 2px solid var(--border-light);
 }
 
 .gen-text strong {
@@ -434,7 +434,7 @@ h2 {
   align-items: center;
   gap: 0.5rem;
   padding-top: 1rem;
-  border-top: 1px solid var(--border-light);
+  border-top: 2px solid var(--border-light);
   font-size: 0.875rem;
 }
 
@@ -453,7 +453,7 @@ h2 {
 .footer {
   margin-top: auto;
   padding: 2rem 0;
-  border-top: 1px solid var(--border-light);
+  border-top: 2px solid var(--border-light);
   text-align: center;
   font-size: 0.875rem;
   color: var(--text-faint);
