@@ -1,4 +1,3 @@
-import Anthropic from "@anthropic-ai/sdk";
 import type { CarDetails, GenerationResult, Lang } from "../lib/types";
 import { LANGS } from "../lib/types";
 import { PLATFORMS } from "../lib/platforms";
@@ -6,7 +5,16 @@ import { buildSystemPrompt, buildUserPrompt } from "../lib/prompt";
 
 const MODEL = import.meta.env.VITE_ANTHROPIC_MODEL || "claude-sonnet-4-6";
 const API_KEY = import.meta.env.VITE_ANTHROPIC_API_KEY || "";
-const BASE_URL = import.meta.env.VITE_ANTHROPIC_BASE_URL;
+const BASE_URL = import.meta.env.VITE_ANTHROPIC_BASE_URL || "https://api.anthropic.com";
+
+interface TextBlock {
+  type: "text";
+  text: string;
+}
+
+interface MessageResponse {
+  content: TextBlock[];
+}
 
 // Pull the JSON object out of the model's text, tolerating stray wrapping.
 function extractJson(text: string): unknown {
@@ -51,56 +59,34 @@ export async function generateListings(
   }
 
   try {
-    let msg;
-
-    if (BASE_URL) {
-      // Custom base URL - use fetch with proper headers
-      console.log("[generate] Using custom base URL:", BASE_URL);
-
-      const response = await fetch(`${BASE_URL}/v1/messages`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": API_KEY,
-          "anthropic-version": "2023-06-01",
-        },
-        body: JSON.stringify({
-          model: MODEL,
-          max_tokens: 8000,
-          system: buildSystemPrompt(),
-          messages: [
-            { role: "user", content: buildUserPrompt(car, PLATFORMS) },
-          ],
-        }),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("[generate] API error response:", errorText);
-        throw new Error(`API request failed: ${response.status}`);
-      }
-
-      msg = await response.json();
-    } else {
-      // Standard Anthropic API
-      const client = new Anthropic({
-        apiKey: API_KEY,
-        dangerouslyAllowBrowser: true // Enable client-side usage
-      });
-
-      msg = await client.messages.create({
+    const response = await fetch(`${BASE_URL}/v1/messages`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": API_KEY,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
         model: MODEL,
         max_tokens: 8000,
         system: buildSystemPrompt(),
         messages: [
           { role: "user", content: buildUserPrompt(car, PLATFORMS) },
         ],
-      });
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("[generate] API error response:", errorText);
+      throw new Error(`API request failed: ${response.status}`);
     }
 
+    const msg = await response.json() as MessageResponse;
+
     const text = msg.content
-      .filter((b: Anthropic.ContentBlock): b is Anthropic.TextBlock => b.type === "text")
-      .map((b: Anthropic.TextBlock) => b.text)
+      .filter((b): b is TextBlock => b.type === "text")
+      .map((b) => b.text)
       .join("");
 
     const result = normalize(extractJson(text));
