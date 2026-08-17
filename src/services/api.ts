@@ -99,7 +99,7 @@ export async function generateListings(
     }
 
     const text = msg.content
-      .filter((b: any): b is Anthropic.TextBlock => b.type === "text")
+      .filter((b: Anthropic.ContentBlock): b is Anthropic.TextBlock => b.type === "text")
       .map((b: Anthropic.TextBlock) => b.text)
       .join("");
 
@@ -109,6 +109,6 @@ export async function generateListings(
     const message =
       err instanceof Error ? err.message : "Unknown generation error";
     console.error("[generate] failed:", message);
-    throw new Error("Failed to generate listings");
+    throw new Error("Failed to generate listings", { cause: err });
   }
 }
